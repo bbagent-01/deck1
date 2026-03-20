@@ -1,128 +1,1103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Name — Tagline</title>
-  <meta name="description" content="Your project description for SEO.">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            surface: { 1: '#09090b', 2: '#0f0f12', 3: '#16161a', 4: '#1e1e24' },
-            coral: { DEFAULT: '#e8735e', light: '#f09a8a', dark: '#c45a47' },
-            amber: { DEFAULT: '#d4a23a', light: '#e4be6a' },
-            zinc: { 50: '#fafafa', 100: '#f4f4f5', 200: '#e4e4e7', 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 600: '#52525b', 700: '#3f3f46', 800: '#27272a', 900: '#18181b' }
-          },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brightbase — Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #1b2530;
+  --dark-mid: #243040;
+  --cream: #f0ebe2;
+  --cream-light: #f5f1ea;
+  --coral: #e85d3a;
+  --coral-glow: #ff6b45;
+  --text-light: #f0ebe2;
+  --text-dark: #1b2530;
+  --text-muted: rgba(240,235,226,0.55);
+  --text-muted-dark: rgba(27,37,48,0.5);
+  --slide-w: 1440px;
+  --slide-h: 810px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--text-light);
+}
+
+/* ── Deck container ── */
+.deck {
+  width: var(--slide-w);
+  height: var(--slide-h);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* ── Dark slide ── */
+.slide-dark {
+  background: var(--dark);
+  color: var(--text-light);
+}
+.slide-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Cream slide ── */
+.slide-cream {
+  background: var(--cream);
+  color: var(--text-dark);
+}
+.slide-cream::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Decorative arcs ── */
+.arc {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(232,93,58,0.2);
+  pointer-events: none;
+  z-index: 0;
+}
+.arc-1 { width: 900px; height: 900px; bottom: -500px; right: -200px; }
+.arc-2 { width: 700px; height: 700px; bottom: -400px; right: -100px; }
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob-cream { background: linear-gradient(135deg, rgba(230,222,210,0.7), rgba(240,235,226,0.3)); }
+
+.slide-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Typography ── */
+h1 {
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+}
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+}
+h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.accent { color: var(--coral); }
+.stat-num {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--coral);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+/* ── Logo placeholder ── */
+.logo-placeholder {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1.5px solid var(--coral);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--coral);
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+.slide-cream .logo-placeholder {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+/* ── Navigation ── */
+.nav-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(27,37,48,0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 40px;
+  padding: 8px 16px;
+  z-index: 100;
+}
+.nav-dots { display: flex; gap: 6px; }
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer; transition: all 0.3s ease;
+}
+.nav-dot.active { background: var(--coral); width: 24px; border-radius: 4px; }
+.nav-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent; color: white;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; transition: all 0.2s; font-size: 14px;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.1); }
+.slide-counter {
+  font-size: 12px; color: rgba(255,255,255,0.4);
+  font-weight: 500; min-width: 40px; text-align: center;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 1 — COVER
+   ══════════════════════════════════════════ */
+.s1-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 48px 64px 0;
+}
+.s1-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.s1-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+.s1-hero h1 {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+.s1-hero-sub {
+  font-size: 20px;
+  font-weight: 500;
+  opacity: 0.55;
+  line-height: 1.6;
+  max-width: 600px;
+}
+.s1-marquee-area {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -64px;
+  height: 260px;
+  flex-shrink: 0;
+}
+.s1-marquee-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: marqueeScroll 50s linear infinite;
+  position: absolute;
+  bottom: -40px;
+}
+.s1-marquee-track img {
+  height: 280px;
+  width: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.s1-fade-l, .s1-fade-r {
+  position: absolute;
+  top: 0; bottom: 0; width: 140px;
+  z-index: 2; pointer-events: none;
+}
+.s1-fade-l { left: 0; background: linear-gradient(90deg, var(--dark) 0%, transparent 100%); }
+.s1-fade-r { right: 0; background: linear-gradient(-90deg, var(--dark) 0%, transparent 100%); }
+
+/* ══════════════════════════════════════════
+   SLIDE 2 & 3 — CASE STUDIES
+   ══════════════════════════════════════════ */
+.cs-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+.cs-left {
+  padding: 48px 48px 48px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+.cs-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+}
+.cs-right img, .cs-right video {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  object-fit: contain;
+  background: rgba(0,0,0,0.15);
+}
+.cs-right-video-wrap {
+  flex: 1.3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0c1a2a;
+  min-height: 0;
+}
+.cs-right-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-right-images {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cs-right-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+}
+.cs-meta { display: flex; gap: 40px; margin-top: 4px; }
+.cs-meta-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 1.2px;
+  text-transform: uppercase; opacity: 0.4; margin-bottom: 4px;
+}
+.cs-meta-value { font-size: 14px; font-weight: 600; }
+.cs-quote {
+  font-size: 17px; font-weight: 500; line-height: 1.6;
+  opacity: 0.85; border-left: 2px solid var(--coral);
+  padding-left: 20px; max-width: 480px;
+}
+.cs-attribution {
+  display: flex; align-items: center; gap: 12px; margin-top: 4px;
+}
+.cs-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.cs-attr-text { font-size: 13px; line-height: 1.4; }
+.cs-attr-name { font-weight: 700; }
+.cs-attr-title { opacity: 0.5; }
+.cs-stats { display: flex; gap: 40px; }
+.cs-stat-label {
+  font-size: 12px; opacity: 0.5; margin-top: 4px;
+  line-height: 1.4; max-width: 160px;
+}
+.cs-services { display: flex; flex-wrap: wrap; gap: 6px; }
+.cs-service-tag {
+  font-size: 11px; font-weight: 600; padding: 4px 10px;
+  border-radius: 20px; background: rgba(240,235,226,0.08); opacity: 0.7;
+}
+.slide-cream .cs-service-tag { background: rgba(27,37,48,0.06); }
+
+/* ══════════════════════════════════════════
+   SLIDE 4 — THE APPROACH
+   ══════════════════════════════════════════ */
+.s4-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  height: 100%;
+}
+.s4-left {
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+.s4-body {
+  font-size: 16px; line-height: 1.7; opacity: 0.7; max-width: 440px;
+}
+.s4-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+.s4-steps {
+  display: flex; flex-direction: column; width: 100%; max-width: 400px;
+}
+.s4-step {
+  display: flex; align-items: flex-start; gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(240,235,226,0.08);
+}
+.s4-step:last-child { border-bottom: none; }
+.s4-step-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(232,93,58,0.12);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--coral);
+}
+.s4-step-icon svg { width: 18px; height: 18px; }
+.s4-step-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.s4-step-desc { font-size: 13px; opacity: 0.5; line-height: 1.5; }
+
+/* ══════════════════════════════════════════
+   SLIDE 5 — THE WHAT
+   ══════════════════════════════════════════ */
+.s5-layout {
+  padding: 56px 56px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.s5-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+.s5-sub {
+  font-size: 15px; opacity: 0.5; max-width: 320px;
+  text-align: right; line-height: 1.5;
+}
+.s5-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  flex: 1;
+}
+.s5-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  position: relative;
+}
+.s5-card-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(232,93,58,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--coral); margin-bottom: auto;
+}
+.s5-card-icon svg { width: 16px; height: 16px; }
+.s5-card-title { font-size: 15px; font-weight: 700; }
+.s5-card-desc { font-size: 11.5px; opacity: 0.4; line-height: 1.5; }
+
+/* ══════════════════════════════════════════
+   SLIDE 6 — THE HOW
+   ══════════════════════════════════════════ */
+.s6-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+.s6-left {
+  padding: 64px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 20px;
+}
+.s6-right {
+  padding: 48px 56px 48px 0;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.s6-point {
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(27,37,48,0.08);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.s6-point:last-child { border-bottom: none; }
+.s6-point-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(232,93,58,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--coral);
+}
+.s6-point-icon svg { width: 20px; height: 20px; }
+.s6-point-content { flex: 1; }
+.s6-point-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.s6-point-desc {
+  font-size: 14px; opacity: 0.5; line-height: 1.6; max-width: 380px;
+}
+.s6-tagline {
+  font-size: 16px; opacity: 0.45; line-height: 1.7; max-width: 380px;
+}
+
+/* ══════════════════════════════════════════
+   SLIDE 7 — THE WHO
+   ══════════════════════════════════════════ */
+.s7-layout {
+  padding: 56px;
+  display: flex; flex-direction: column; height: 100%;
+}
+.s7-header { margin-bottom: 16px; }
+.s7-subtitle { font-size: 16px; opacity: 0.5; margin-top: 8px; }
+.s7-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px; flex: 1; align-content: center;
+}
+.s7-person { text-align: center; }
+.s7-photo-wrap {
+  width: 100%; aspect-ratio: 1; border-radius: 12px;
+  overflow: hidden; margin-bottom: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.s7-photo-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%);
+}
+.s7-name { font-size: 14px; font-weight: 700; }
+.s7-title { font-size: 11px; color: var(--coral); font-weight: 600; margin-top: 2px; }
+.s7-location { font-size: 11px; opacity: 0.4; margin-top: 2px; }
+
+/* ══════════════════════════════════════════
+   SLIDE 8 — LET'S TALK / ROTATING TESTIMONIALS
+   ══════════════════════════════════════════ */
+.s8-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+.s8-left {
+  padding: 64px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 32px;
+}
+.s8-cta-sub {
+  font-size: 16px; opacity: 0.5; line-height: 1.7; max-width: 400px;
+}
+.s8-contact {
+  display: flex; flex-direction: column; gap: 6px; font-size: 15px;
+}
+.s8-contact a { color: var(--coral); text-decoration: none; font-weight: 600; }
+.s8-right {
+  display: flex; flex-direction: column;
+  justify-content: center; padding: 64px 56px;
+  gap: 48px;
+}
+.s8-testimonial-wrap {
+  position: relative;
+  min-height: 240px;
+}
+.s8-testimonial {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.s8-testimonial.active { opacity: 1; }
+.s8-quote-text {
+  font-size: 20px; font-weight: 600; line-height: 1.5;
+  letter-spacing: -0.2px; margin-bottom: 20px;
+}
+.s8-logos {
+  display: flex; gap: 32px; align-items: center; opacity: 0.35;
+}
+.s8-logo-name { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
+
+/* ── Responsive ── */
+@media (max-width: 1500px) {
+  .deck { transform: scale(0.85); transform-origin: center center; }
+}
+@media (max-width: 1280px) {
+  .deck { transform: scale(0.7); }
+}
+</style>
 </head>
-<body class="bg-surface-1 text-zinc-200 antialiased">
+<body>
 
-  <!-- ═══ DARK HERO ═══ -->
-  <header class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-surface-1 via-surface-2 to-surface-3"></div>
-    <nav class="relative z-10 max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-      <a href="/" class="text-lg font-bold tracking-tight text-white">ProjectName</a>
-      <div class="flex items-center gap-8">
-        <a href="#features" class="text-sm text-zinc-400 hover:text-white transition-colors">Features</a>
-        <a href="#about" class="text-sm text-zinc-400 hover:text-white transition-colors">About</a>
-        <a href="#cta" class="text-sm font-medium text-surface-1 bg-coral px-4 py-2 rounded-lg hover:bg-coral-light transition-colors">Get Started</a>
+<div class="deck">
+
+  <!-- ═══ SLIDE 1: COVER ═══ -->
+  <div class="slide slide-dark active" data-slide="1">
+    <div class="arc arc-1"></div>
+    <div class="arc arc-2"></div>
+    <div class="slide-content s1-layout">
+      <div class="s1-header">
+        <span class="logo-placeholder">[ brightbase logo ]</span>
       </div>
-    </nav>
-    <div class="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-32 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-coral/10 border border-coral/20 rounded-full text-xs font-medium text-coral font-mono mb-8">
-        <span class="w-1.5 h-1.5 bg-coral rounded-full"></span>
-        STATUS OR TAGLINE
+      <div class="s1-hero">
+        <h1>Scale your creative without<br>scaling&nbsp;payroll<span class="accent">.</span></h1>
+        <p class="s1-hero-sub">A fractional creative team that moves at your&nbsp;pace. 20x faster and 50% cheaper than full-time hiring&nbsp;or agencies — adjustable&nbsp;month&#8209;to&#8209;month.</p>
       </div>
-      <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-        Your headline goes here<span class="text-coral">.</span>
-      </h1>
-      <p class="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10">
-        A clear, concise description of what this project does and why someone should care. Keep it to two sentences max.
-      </p>
-      <div class="flex items-center justify-center gap-4">
-        <a href="#cta" class="bg-coral text-surface-1 font-semibold px-6 py-3 rounded-lg hover:bg-coral-light transition-colors">Primary Action</a>
-        <a href="#features" class="border border-surface-4 text-zinc-300 font-medium px-6 py-3 rounded-lg hover:bg-surface-3 transition-colors">Learn More</a>
+      <div class="s1-marquee-area">
+        <div class="s1-marquee-track">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc15_SVT-Gartner-Event.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc19_NVS-home-page.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc2b_NAW%20-%20Ebook%2023.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc17_STY%20-%20Web-2.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc29_Hyperproof.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc1f_Navigate-hero.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68d55192f53d94ff8eb7034a_1600%20x%201200%20-%20CAMP%20COA%20-%201.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc27_Rectangle%203885.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc21_6%20-%20SWH.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc25_Rectangle%203884.png" alt="">
+          <!-- duplicate for loop -->
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc15_SVT-Gartner-Event.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc19_NVS-home-page.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc2b_NAW%20-%20Ebook%2023.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc17_STY%20-%20Web-2.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc29_Hyperproof.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc1f_Navigate-hero.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68d55192f53d94ff8eb7034a_1600%20x%201200%20-%20CAMP%20COA%20-%201.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc27_Rectangle%203885.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc21_6%20-%20SWH.png" alt="">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68c554074492aa0afab7dc25_Rectangle%203884.png" alt="">
+        </div>
+        <div class="s1-fade-l"></div>
+        <div class="s1-fade-r"></div>
       </div>
     </div>
-  </header>
+  </div>
 
-  <!-- ═══ LIGHT BODY ═══ -->
-  <main class="bg-zinc-50 text-zinc-900">
-
-    <!-- Features -->
-    <section id="features" class="max-w-6xl mx-auto px-6 py-24">
-      <div class="text-center mb-16">
-        <p class="text-sm font-semibold text-coral uppercase tracking-wider mb-3">Features</p>
-        <h2 class="text-3xl font-bold tracking-tight">What makes this different</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white border border-zinc-200 rounded-xl p-8">
-          <div class="w-10 h-10 bg-coral/10 rounded-lg flex items-center justify-center mb-4">
-            <span class="text-coral font-bold">01</span>
-          </div>
-          <h3 class="text-lg font-semibold mb-2">Feature One</h3>
-          <p class="text-zinc-500 leading-relaxed">Describe the feature and its benefit to the user. Keep it brief and benefit-focused.</p>
+  <!-- ═══ SLIDE 2: COALESCE ═══ -->
+  <div class="slide slide-dark" data-slide="2">
+    <div class="arc arc-1"></div>
+    <div class="slide-content cs-layout">
+      <div class="cs-left">
+        <div>
+          <div class="label" style="margin-bottom:12px;">Case Study</div>
+          <h2>Coalesce</h2>
+          <p style="font-size:14px; opacity:0.5; margin-top:8px; line-height:1.5;">Data Transformation · SaaS ·&nbsp;B2B</p>
         </div>
-        <div class="bg-white border border-zinc-200 rounded-xl p-8">
-          <div class="w-10 h-10 bg-coral/10 rounded-lg flex items-center justify-center mb-4">
-            <span class="text-coral font-bold">02</span>
-          </div>
-          <h3 class="text-lg font-semibold mb-2">Feature Two</h3>
-          <p class="text-zinc-500 leading-relaxed">Describe the feature and its benefit to the user. Keep it brief and benefit-focused.</p>
+        <div class="cs-services">
+          <span class="cs-service-tag">3+ Year Retainer</span>
+          <span class="cs-service-tag">Branding</span>
+          <span class="cs-service-tag">Web Design</span>
+          <span class="cs-service-tag">Web Dev</span>
+          <span class="cs-service-tag">Collateral</span>
         </div>
-        <div class="bg-white border border-zinc-200 rounded-xl p-8">
-          <div class="w-10 h-10 bg-coral/10 rounded-lg flex items-center justify-center mb-4">
-            <span class="text-coral font-bold">03</span>
+        <div class="cs-stats">
+          <div>
+            <div class="stat-num">$394K</div>
+            <div class="cs-stat-label">Saved annually vs. comparable in-house&nbsp;team</div>
           </div>
-          <h3 class="text-lg font-semibold mb-2">Feature Three</h3>
-          <p class="text-zinc-500 leading-relaxed">Describe the feature and its benefit to the user. Keep it brief and benefit-focused.</p>
+          <div>
+            <div class="stat-num">$50M</div>
+            <div class="cs-stat-label">Series B raise post brand&nbsp;update</div>
+          </div>
+        </div>
+        <div>
+          <div class="cs-quote">"We couldn't do it without them. They're a natural extension of our&nbsp;team."</div>
+          <div class="cs-attribution" style="margin-top:16px;">
+            <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/69aefd5354e381dfd0f4d28a_Christina-Jimenez-COA.png" alt="Christina Jimenez">
+            <div class="cs-attr-text">
+              <div class="cs-attr-name">Christina Jimenez</div>
+              <div class="cs-attr-title">Head of Marketing, Coalesce</div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="border-t border-zinc-200">
-      <div class="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h2 class="text-3xl font-bold tracking-tight mb-6">About this project</h2>
-        <p class="text-lg text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-          A longer description of the project, its background, and context. This section can be multiple paragraphs if needed.
-        </p>
+      <div class="cs-right">
+        <div class="cs-right-video-wrap">
+          <video autoplay loop muted playsinline
+            poster="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6980b1b604924193baf2d72e_1600%20x%201200%20-%20COA%20-%202.png">
+            <source src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de%2F697cf61bc854e8d8787fa11c_COA%20primary%20case%20study%202025%20-%20scrolling%20video%20-COMP_mp4.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="cs-right-images">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6980b1b565be064144fafe09_1600%20x%201200%20-%20COA%20-%205.png" alt="Coalesce customer section">
+          <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6980b1b505954daa7400e280_1600%20x%201600%20-%20COA%20-%207.png" alt="Coalesce platform section">
+        </div>
       </div>
-    </section>
-
-    <!-- CTA -->
-    <section id="cta" class="border-t border-zinc-200 bg-white">
-      <div class="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h2 class="text-3xl font-bold tracking-tight mb-4">Ready to get started?</h2>
-        <p class="text-zinc-500 mb-8">Call to action supporting text.</p>
-        <a href="mailto:hello@brightbase.co" class="inline-block bg-surface-1 text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-zinc-800 transition-colors">Get in Touch</a>
-      </div>
-    </section>
-  </main>
-
-  <!-- ═══ DARK FOOTER ═══ -->
-  <footer class="bg-surface-1 border-t border-surface-4">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-      <p class="text-sm text-zinc-600">&copy; 2026 ProjectName. All rights reserved.</p>
-      <p class="text-xs text-zinc-700 font-mono">built on bbase.dev</p>
     </div>
-  </footer>
+  </div>
+
+  <!-- ═══ SLIDE 3: SOURCEWHALE ═══ -->
+  <div class="slide slide-cream" data-slide="3">
+    <div class="blob blob-cream" style="width:600px;height:600px;top:-200px;right:-100px;"></div>
+    <div class="slide-content cs-layout">
+      <div class="cs-left">
+        <div>
+          <div class="label" style="margin-bottom:12px;">Case Study</div>
+          <h2>SourceWhale</h2>
+          <p style="font-size:14px; opacity:0.5; margin-top:8px; line-height:1.5;">Recruitment Outreach · SaaS ·&nbsp;B2B</p>
+        </div>
+        <div class="cs-services">
+          <span class="cs-service-tag">Branding</span>
+          <span class="cs-service-tag">Web Design</span>
+          <span class="cs-service-tag">Web Dev</span>
+          <span class="cs-service-tag">Collateral</span>
+          <span class="cs-service-tag">Brand Guide</span>
+        </div>
+        <div class="cs-stats">
+          <div>
+            <div class="stat-num">+22%</div>
+            <div class="cs-stat-label">Conversion rate increase post&nbsp;redesign</div>
+          </div>
+          <div>
+            <div class="stat-num">$161K</div>
+            <div class="cs-stat-label">Saved annually vs. comparable in-house&nbsp;team</div>
+          </div>
+        </div>
+        <div>
+          <div class="cs-quote" style="border-color: var(--coral);">"Record-breaking results in qualified meetings and influenced&nbsp;revenue."</div>
+          <div class="cs-attribution" style="margin-top:16px;">
+            <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6672c54c321c865a6ecd8f4d_Madison%20Perry%20Vice%20President%2C%20Marketing%20Sourcewhale%402x.jpg" alt="Madison Perry">
+            <div class="cs-attr-text">
+              <div class="cs-attr-name">Madison Perry</div>
+              <div class="cs-attr-title">VP Marketing, SourceWhale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-right" style="justify-content: center;">
+        <div style="width:100%; border-radius:8px; overflow:hidden; background:var(--cream-light);">
+          <video autoplay loop muted playsinline style="width:100%; display:block;"
+            poster="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/667010bf73037c1821b45c84_swh_case_study%402x.jpg">
+            <source src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de%2F66745c3cb63e0017e9daf8c8_SWH-home-page-scroll-1-transcode.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4: THE APPROACH ═══ -->
+  <div class="slide slide-dark" data-slide="4">
+    <div class="arc arc-1"></div>
+    <div class="arc arc-2"></div>
+    <div class="slide-content s4-layout">
+      <div class="s4-left">
+        <div class="label">Our approach</div>
+        <h1>We earn trust<br>before we<br>ask for&nbsp;it<span class="accent">.</span></h1>
+        <p class="s4-body">Every engagement starts with understanding — your brand, your market, your competition. This upfront investment ensures everything we create is strategic, not&nbsp;decorative.</p>
+      </div>
+      <div class="s4-right">
+        <div class="s4-steps">
+          <div class="s4-step">
+            <div class="s4-step-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div>
+              <div class="s4-step-title">Understand</div>
+              <div class="s4-step-desc">Brand audit, competitive landscape, messaging alignment. We learn your business before we touch&nbsp;a&nbsp;pixel.</div>
+            </div>
+          </div>
+          <div class="s4-step">
+            <div class="s4-step-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div>
+              <div class="s4-step-title">Prove</div>
+              <div class="s4-step-desc">A focused engagement that demonstrates our thinking and capability — strategy, not just&nbsp;style.</div>
+            </div>
+          </div>
+          <div class="s4-step">
+            <div class="s4-step-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="s4-step-title">Deliver</div>
+              <div class="s4-step-desc">Ongoing creative execution across brand, web, collateral, video, and content. One team, fully&nbsp;embedded.</div>
+            </div>
+          </div>
+          <div class="s4-step">
+            <div class="s4-step-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9"/></svg>
+            </div>
+            <div>
+              <div class="s4-step-title">Evolve</div>
+              <div class="s4-step-desc">Scale up, shift focus, or adjust month-to-month. Your needs change — your team adapts&nbsp;with&nbsp;you.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5: THE WHAT ═══ -->
+  <div class="slide slide-dark" data-slide="5">
+    <div class="slide-content s5-layout">
+      <div class="s5-header">
+        <div>
+          <div class="label" style="margin-bottom:12px;">What we do</div>
+          <h2>Full-service creative&nbsp;team<span class="accent">.</span><br>One simple&nbsp;subscription<span class="accent">.</span></h2>
+        </div>
+        <div class="s5-sub">Everything your marketing team needs — design, development, video, and&nbsp;content — without the&nbsp;overhead.</div>
+      </div>
+      <div class="s5-grid">
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="s5-card-title">Brand Identity</div>
+          <div class="s5-card-desc">Logo, visual identity, brand guidelines, and&nbsp;strategy</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <div class="s5-card-title">Web Design</div>
+          <div class="s5-card-desc">Landing pages, product sites, campaigns, and&nbsp;microsites</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+          </div>
+          <div class="s5-card-title">Web Development</div>
+          <div class="s5-card-desc">WordPress, Webflow, and custom front-end&nbsp;builds</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>
+          </div>
+          <div class="s5-card-title">Slide Decks</div>
+          <div class="s5-card-desc">Pitch decks, sales enablement, and investor&nbsp;presentations</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="s5-card-title">Collateral &amp;&nbsp;Ebooks</div>
+          <div class="s5-card-desc">Datasheets, whitepapers, one-pagers, and&nbsp;reports</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <div class="s5-card-title">Social &amp;&nbsp;Campaign</div>
+          <div class="s5-card-desc">Social media creative, ad campaigns, and content&nbsp;design</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="s5-card-title">Event &amp;&nbsp;Swag</div>
+          <div class="s5-card-desc">Booth design, event branding, signage, and&nbsp;merchandise</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-card-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <div class="s5-card-title">Video &amp;&nbsp;Motion</div>
+          <div class="s5-card-desc">Explainers, product demos, social clips, and&nbsp;animations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6: THE HOW ═══ -->
+  <div class="slide slide-cream" data-slide="6">
+    <div class="blob blob-cream" style="width:700px;height:700px;bottom:-300px;left:-200px;"></div>
+    <div class="slide-content s6-layout">
+      <div class="s6-left">
+        <div class="label">How it works</div>
+        <h1>Flexible<br>by&nbsp;design<span class="accent">.</span></h1>
+        <p class="s6-tagline">A creative subscription built to scale with you. No long-term commitments, no hiring headaches, no&nbsp;surprises.</p>
+      </div>
+      <div class="s6-right">
+        <div class="s6-point">
+          <div class="s6-point-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="s6-point-content">
+            <div class="s6-point-title">Dedicated senior&nbsp;team<span class="accent">.</span></div>
+            <div class="s6-point-desc">Work directly with experienced creatives and project managers embedded in your workflow — Slack, Asana, wherever you work. No ticket&nbsp;queues.</div>
+          </div>
+        </div>
+        <div class="s6-point">
+          <div class="s6-point-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div class="s6-point-content">
+            <div class="s6-point-title">Month&#8209;to&#8209;month<span class="accent">.</span></div>
+            <div class="s6-point-desc">Adjust hours up, down, or pause anytime. No annual contracts. Unused hours roll over so nothing goes to&nbsp;waste.</div>
+          </div>
+        </div>
+        <div class="s6-point">
+          <div class="s6-point-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          </div>
+          <div class="s6-point-content">
+            <div class="s6-point-title">Built to&nbsp;scale<span class="accent">.</span></div>
+            <div class="s6-point-desc">From 50 hours a month to full-time coverage. One team that grows with you — adding skills and capacity as your needs&nbsp;evolve.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 7: THE WHO ═══ -->
+  <div class="slide slide-dark" data-slide="7">
+    <div class="arc arc-1"></div>
+    <div class="slide-content s7-layout">
+      <div class="s7-header">
+        <div class="label" style="margin-bottom:12px;">Who we are</div>
+        <h2>Senior talent<span class="accent">.</span><br>Dedicated to&nbsp;you<span class="accent">.</span></h2>
+        <p class="s7-subtitle">15+ years average experience. A core team that extends through a vetted network to match your&nbsp;needs.</p>
+      </div>
+      <div class="s7-grid">
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/66757092b097ec6163bba20b_Loren%20Polster%402x.png" alt="Loren Polster">
+          </div>
+          <div class="s7-name">Loren Polster</div>
+          <div class="s7-title">Founder + Principal</div>
+          <div class="s7-location">New York</div>
+        </div>
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6827896880a60ccd7bd7dad9_Kaitlyn-Morneweck.png" alt="Kaitlyn Morneweck">
+          </div>
+          <div class="s7-name">Kaitlyn Morneweck</div>
+          <div class="s7-title">Creative Director</div>
+          <div class="s7-location">North Carolina</div>
+        </div>
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6675709279e303870dfce58e_Jason%20Caslavka%402x.png" alt="Jason Caslavka">
+          </div>
+          <div class="s7-name">Jason Caslavka</div>
+          <div class="s7-title">Managing Director</div>
+          <div class="s7-location">Oregon</div>
+        </div>
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/66757092d04d961867ec6dd0_Matthew%20Tomaziefski%402x.png" alt="Matt Tomaziefski">
+          </div>
+          <div class="s7-name">Matt Tomaziefski</div>
+          <div class="s7-title">Senior Developer</div>
+          <div class="s7-location">New Jersey</div>
+        </div>
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/667b1123548b0e6bc6e2dc10_Mask%20group.png" alt="Dae Eriksson">
+          </div>
+          <div class="s7-name">Dae Eriksson</div>
+          <div class="s7-title">Senior Project Manager</div>
+          <div class="s7-location">San Diego</div>
+        </div>
+        <div class="s7-person">
+          <div class="s7-photo-wrap">
+            <img src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/68278968073413ffefd45ebb_Yihsuan-Lu.png" alt="Yihsuan Lu">
+          </div>
+          <div class="s7-name">Yihsuan Lu</div>
+          <div class="s7-title">Senior Designer</div>
+          <div class="s7-location">Montréal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 8: LET'S TALK ═══ -->
+  <div class="slide slide-dark" data-slide="8">
+    <div class="arc arc-1"></div>
+    <div class="arc arc-2"></div>
+    <div class="slide-content s8-layout">
+      <div class="s8-left">
+        <div>
+          <div class="label" style="margin-bottom:12px;">Next step</div>
+          <h1>Let's see if<br>it's a&nbsp;fit<span class="accent">.</span></h1>
+        </div>
+        <p class="s8-cta-sub">No pitch. No pressure. Just a conversation about what you need and whether we're the right team&nbsp;for&nbsp;it.</p>
+        <div class="s8-contact">
+          <span style="font-weight:700;">Loren Polster</span>
+          <a href="mailto:loren@brightbase.co">loren@brightbase.co</a>
+          <a href="https://brightbase.co" target="_blank">brightbase.co</a>
+        </div>
+        <span class="logo-placeholder" style="margin-top:16px; align-self:flex-start;">[ brightbase logo ]</span>
+      </div>
+      <div class="s8-right">
+        <div class="s8-testimonial-wrap" id="testimonialWrap">
+          <div class="s8-testimonial active" data-idx="0">
+            <div class="s8-quote-text">"An effective creative &amp; web agency that understands B2B deliverables, integrates seamlessly with our team, and delivers incredible quality in record time with minimal direction. <span class="accent">They just get&nbsp;it.</span>"</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6622491ee421de7d940e9340_Wade%20Tibke.png" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Wade Tibke</div>
+                <div class="cs-attr-title">SVP Marketing, Coalesce</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="1">
+            <div class="s8-quote-text">"Record-breaking results in both marketing qualified meetings and influenced revenue. Brightbase's professionalism shines through their timely communication and meticulous project&nbsp;management."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6672c54c321c865a6ecd8f4d_Madison%20Perry%20Vice%20President%2C%20Marketing%20Sourcewhale%402x.jpg" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Madison Perry</div>
+                <div class="cs-attr-title">VP Marketing, SourceWhale</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="2">
+            <div class="s8-quote-text">"A reliable and essential extension of our&nbsp;team."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6625d11dfe28fe414556c087_Yash%20Prakash%20Chief%20Marketing%20Officer%20Saviynt%402x.jpg" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Yash Prakash</div>
+                <div class="cs-attr-title">CMO, Saviynt</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="3">
+            <div class="s8-quote-text">"They are a partner you can trust with your&nbsp;brand."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6625d11d07bb722c1651ad86_Casey%20Munck%20Senior%20Director%2C%20Marketing%20NAVIS%402x.jpg" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Casey Munck</div>
+                <div class="cs-attr-title">Sr. Director Marketing, NAVIS</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="4">
+            <div class="s8-quote-text">"They consistently deliver inventive and high-quality&nbsp;work."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/6625d11d4bca2b8f8bd509e1_Lani%20Beadle%20Marketing%20Launch%20Darkly%402x.jpg" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Lani Beadle</div>
+                <div class="cs-attr-title">Marketing, LaunchDarkly</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="5">
+            <div class="s8-quote-text">"We couldn't do it without them. They're a natural extension of our&nbsp;team."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/69aefd5354e381dfd0f4d28a_Christina-Jimenez-COA.png" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Christina Jimenez</div>
+                <div class="cs-attr-title">Head of Marketing, Coalesce</div>
+              </div>
+            </div>
+          </div>
+          <div class="s8-testimonial" data-idx="6">
+            <div class="s8-quote-text">"They go over and above, time after time, with projects large and&nbsp;small."</div>
+            <div class="cs-attribution">
+              <img class="cs-avatar" src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/667ab7d0c8458fbaa3e9a6ff_Erin%20Duncan%20Director%2C%20Product%20Marketing%20Saviynt.jpg" alt="">
+              <div class="cs-attr-text">
+                <div class="cs-attr-name">Erin Duncan</div>
+                <div class="cs-attr-title">Dir. Product Marketing, Saviynt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="s8-logos">
+          <span class="s8-logo-name">Coalesce</span>
+          <span class="s8-logo-name">Saviynt</span>
+          <span class="s8-logo-name">SourceWhale</span>
+          <span class="s8-logo-name">NAVIS</span>
+          <span class="s8-logo-name">Fixify</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" onclick="navigate(-1)">&#8249;</button>
+  <div class="nav-dots" id="navDots"></div>
+  <span class="slide-counter" id="slideCounter">1 / 8</span>
+  <button class="nav-btn" onclick="navigate(1)">&#8250;</button>
+</div>
+
+<script>
+  // Slide navigation
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsContainer = document.getElementById('navDots');
+  const counter = document.getElementById('slideCounter');
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, idx));
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault(); navigate(1);
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault(); navigate(-1);
+    }
+  });
+
+  // Testimonial rotation on slide 8
+  const testimonials = document.querySelectorAll('.s8-testimonial');
+  let tIdx = 0;
+  setInterval(() => {
+    testimonials[tIdx].classList.remove('active');
+    tIdx = (tIdx + 1) % testimonials.length;
+    testimonials[tIdx].classList.add('active');
+  }, 4000);
+</script>
 
 </body>
 </html>
