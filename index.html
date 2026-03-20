@@ -307,7 +307,7 @@ h3 {
 .cs-right-video-wrap video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .cs-right-images {
   flex: 1;
@@ -700,9 +700,9 @@ h3 {
           </div>
         </div>
       </div>
-      <div class="cs-right" style="justify-content: center;">
-        <div style="width:100%; border-radius:8px; overflow:hidden; background:var(--cream-light);">
-          <video autoplay loop muted playsinline style="width:100%; display:block;"
+      <div class="cs-right">
+        <div class="cs-right-video-wrap" style="background:var(--cream-light);">
+          <video autoplay loop muted playsinline
             poster="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de/667010bf73037c1821b45c84_swh_case_study%402x.jpg">
             <source src="https://cdn.prod.website-files.com/66068e0dc4e60d632a8c89de%2F66745c3cb63e0017e9daf8c8_SWH-home-page-scroll-1-transcode.mp4" type="video/mp4">
           </video>
